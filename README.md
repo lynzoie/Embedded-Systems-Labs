@@ -1,2 +1,2 @@
 # Embedded-Systems-Labs
- All of the embedded systems lab
+ Just some UC kids tryna make it through this Embedded Systems class lol
