@@ -24,35 +24,39 @@ module lab_1(
     input   [3:0] In1,
     input   [3:0] In2, 
     input   [1:0] Ctrl,     // instruction
-    input   Clk,            // pushbutton, execute next step
+    input   Btn,            // pushbutton, execute next step
     output  Z,              // if OUT=0, Z=0, else Z=1
     output  Cf,
-    output  [3:0] Out,
-    reg     [1:0] state,
-    reg     [4:0] Out_Reg,  // [CF + Out]
-    reg     [3:0] In1_Reg,  // store value of In1
-    reg     [3:0] In2_Reg,  // store value of In2
-    reg     Z_Reg
+    output  [3:0] Out
     );
+
+    reg     [1:0] state;
+    reg     [1:0] Ctrl_Reg;
+    reg     [4:0] Out_Reg;  // [CF + Out]
+    reg     [3:0] In1_Reg;  // store value of In1
+    reg     [3:0] In2_Reg;  // store value of In2
+    reg     Z_Reg;
 
     always @(state) 
     begin
       case(state)
         2'b00 : // case 0 : get instructions, next state <= S1 press button
         begin 
-          if (Clk == 1'b1) 
-            state = 2'b01;  
+          if (Btn) 
+            state = 2'b01;
+          else
+            Ctrl_Reg = Ctrl;  
           end
         2'b01 : // case 1 : get input 1, next state <= S2 press button
         begin 
-          if (Clk == 1'b1) 
+          if (Btn) 
             state = 2'b10;
           else
             In1_Reg = In1;  
           end
         2'b10 : // case 2 : get input 2, next state <= S3 press button
         begin
-          if (Clk == 1'b1) 
+          if (Btn) 
             state = 2'b01;
           else
             In2_Reg = In2;  
@@ -60,7 +64,7 @@ module lab_1(
         2'b11 : // case 3 : display output, next state <= S0 
         begin
           // execute instruction
-          case(Ctrl)           
+          case(Ctrl_Reg)           
             00 : Out_Reg = In1_Reg + In2_Reg;       // Add
             01 : Out_Reg = In1_Reg & In2_Reg;       // And
             10 : Out_Reg = ~In1_Reg;            // Not In1
