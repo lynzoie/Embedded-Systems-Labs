@@ -65,10 +65,10 @@ module lab_1(
         begin
           // execute instruction
           case(Ctrl_Reg)           
-            00 : Out_Reg = In1_Reg + In2_Reg;       // Add
-            01 : Out_Reg = In1_Reg & In2_Reg;       // And
-            10 : Out_Reg = ~In1_Reg;            // Not In1
-            11 : Out_Reg = In1_Reg | In2_Reg;       // Or
+            0 : Out_Reg = In1_Reg + In2_Reg;       // Add
+            1 : Out_Reg = In1_Reg & In2_Reg;       // And
+            2 : Out_Reg = ~In1_Reg;            // Not In1
+            3 : Out_Reg = In1_Reg | In2_Reg;       // Or
           endcase   
           
           // assign Z
