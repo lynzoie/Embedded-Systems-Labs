@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="tb_lab2_behav.wdb" id="1">
+         <top_modules>
+            <top_module name="glbl" />
+            <top_module name="tb_lab2" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <zoom_setting>
+      <ZoomStartTime time="59999999999995fs"></ZoomStartTime>
+      <ZoomEndTime time="60000000000001fs"></ZoomEndTime>
+      <Cursor1Time time="60000000000000fs"></Cursor1Time>
+   </zoom_setting>
+   <column_width_setting>
+      <NameColumnWidth column_width="76"></NameColumnWidth>
+      <ValueColumnWidth column_width="58"></ValueColumnWidth>
+   </column_width_setting>
+   <WVObjectSize size="12" />
+   <wvobject fp_name="/tb_lab2/Clk" type="logic">
+      <obj_property name="ElementShortName">Clk</obj_property>
+      <obj_property name="ObjectShortName">Clk</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_lab2/clk2" type="logic">
+      <obj_property name="ElementShortName">clk2</obj_property>
+      <obj_property name="ObjectShortName">clk2</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_lab2/TurnLane_NS" type="array">
+      <obj_property name="ElementShortName">TurnLane_NS[1:0]</obj_property>
+      <obj_property name="ObjectShortName">TurnLane_NS[1:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_lab2/Broken" type="array">
+      <obj_property name="ElementShortName">Broken[1:0]</obj_property>
+      <obj_property name="ObjectShortName">Broken[1:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_lab2/Out_East" type="array">
+      <obj_property name="ElementShortName">Out_East[2:0]</obj_property>
+      <obj_property name="ObjectShortName">Out_East[2:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_lab2/Out_West" type="array">
+      <obj_property name="ElementShortName">Out_West[2:0]</obj_property>
+      <obj_property name="ObjectShortName">Out_West[2:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_lab2/Out_North" type="array">
+      <obj_property name="ElementShortName">Out_North[2:0]</obj_property>
+      <obj_property name="ObjectShortName">Out_North[2:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_lab2/Out_South" type="array">
+      <obj_property name="ElementShortName">Out_South[2:0]</obj_property>
+      <obj_property name="ObjectShortName">Out_South[2:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_lab2/Crosswalk_Light" type="array">
+      <obj_property name="ElementShortName">Crosswalk_Light[1:0]</obj_property>
+      <obj_property name="ObjectShortName">Crosswalk_Light[1:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_lab2/Out_North_Turn" type="logic">
+      <obj_property name="ElementShortName">Out_North_Turn</obj_property>
+      <obj_property name="ObjectShortName">Out_North_Turn</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_lab2/Out_South_Turn" type="logic">
+      <obj_property name="ElementShortName">Out_South_Turn</obj_property>
+      <obj_property name="ObjectShortName">Out_South_Turn</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_lab2/period" type="array">
+      <obj_property name="ElementShortName">period[31:0]</obj_property>
+      <obj_property name="ObjectShortName">period[31:0]</obj_property>
+   </wvobject>
+</wave_config>
