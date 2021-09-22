@@ -3,11 +3,13 @@
 
 module tb_lab2(); 
 
+  // declare inputs
   reg Clk;
   reg clk2; 
   reg [1:0] TurnLane_NS;
   reg [1:0] Broken;
 
+  // declare outputs
   wire [2:0] Out_East;
   wire [2:0] Out_West;
   wire [2:0] Out_North;
@@ -16,19 +18,20 @@ module tb_lab2();
   wire Out_North_Turn;
   wire Out_South_Turn;
     
-  localparam period = 1000000000;  // 10 ns delay
+  localparam period = 1000000000;  // 1 s delay
 
+  // map to lab2 module
   lab2 UUT (.Clk(Clk), .TurnLane_NS(TurnLane_NS), .Broken(Broken), .Out_East(Out_East), .Out_West(Out_West), .Out_North(Out_North), .Out_South(Out_South), .Crosswalk_Light(Crosswalk_Light), .Out_North_Turn(Out_North_Turn), .Out_South_Turn(Out_South_Turn));
 
-  // initialize the clock
+  // initialize the clock for simulation
   always begin 
     clk2 = 1'b1;
-    #1000000000; // high for 10 ns
+    #1000000000; // high for 1 s
     clk2 = 1'b0;
-    #1000000000;     // low for 10 ns
+    #1000000000;     // low for 1 s
   end
   
-    // initialize the clock
+    // initialize the internal clock for board
   always begin 
     Clk = 1'b1;
     #10; // high for 10 ns
@@ -43,6 +46,7 @@ module tb_lab2();
 
  always @(posedge clk2) 
  begin
+	// iterate through test cases
       #period // wait for period 
       TurnLane_NS = 2'b00; Broken = 2'b00;
       #period // wait for period 
@@ -60,5 +64,4 @@ module tb_lab2();
       #period // wait for period 
       TurnLane_NS = 2'b00; Broken = 2'b11;
   end
-
 endmodule
