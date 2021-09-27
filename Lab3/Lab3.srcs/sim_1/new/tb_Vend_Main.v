@@ -40,7 +40,7 @@ module tb_Vend_Main();
   localparam period = 1000000000;  // 1 s delay
 
   // map to lab2 module
-  Vend_Main UUT (.Clk(Clk), .money_in(money_in), .product_in(product_in), .dispense(dispense), .product_out(product_out), .changeLED(changeLED), .alert(alert), .Anode_Activate(Anode_Activate), .LED_Out(LED_Out), .decimal(decimal));
+  Vend_Main UUT (.Clk(Clk), .money_in(money_in), .product_in(product_in), .dispense(dispense), .product_out(product_out), .changeLED(changeLED), .alert(alert), .Anode_Activate(Anode_Activate), .LED_out(LED_out), .decimal(decimal));
 
   // initialize the clock for simulation
   always begin 
