@@ -1,0 +1,29 @@
+#-----------------------------------------------------------
+# Vivado v2020.2 (64-bit)
+# SW Build 3064766 on Wed Nov 18 09:12:45 MST 2020
+# IP Build 3064653 on Wed Nov 18 14:17:31 MST 2020
+# Start of session at: Mon Sep 27 16:35:39 2021
+# Process ID: 10352
+# Current directory: C:/Users/Andi/GIT/Embedded Systems/Embedded-Systems-Labs/Lab3
+# Command line: vivado.exe -gui_launcher_event rodinguilauncherevent11920 C:\Users\Andi\GIT\Embedded Systems\Embedded-Systems-Labs\Lab3\Lab3.xpr
+# Log file: C:/Users/Andi/GIT/Embedded Systems/Embedded-Systems-Labs/Lab3/vivado.log
+# Journal file: C:/Users/Andi/GIT/Embedded Systems/Embedded-Systems-Labs/Lab3\vivado.jou
+#-----------------------------------------------------------
+start_gui
+open_project {C:/Users/Andi/GIT/Embedded Systems/Embedded-Systems-Labs/Lab3/Lab3.xpr}
+update_compile_order -fileset sources_1
+launch_simulation
+launch_simulation
+source tb_Vend_Main.tcl
+set_property -name {xsim.simulate.runtime} -value {1000000000ns} -objects [get_filesets sim_1]
+close_sim
+launch_simulation
+source tb_Vend_Main.tcl
+set_property -name {xsim.simulate.runtime} -value {6000000000ns} -objects [get_filesets sim_1]
+close_sim
+launch_simulation
+source tb_Vend_Main.tcl
+close_sim
+launch_simulation
+source tb_Vend_Main.tcl
+close_sim

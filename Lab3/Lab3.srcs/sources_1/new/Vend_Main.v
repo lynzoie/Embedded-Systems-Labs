@@ -32,7 +32,6 @@ module Vend_Main(
     integer foursDigit = 0;
     integer decimalValue = 0;
     integer count = 0;
-    integer seg7_count = 0;
     integer refresh_counter = 0;
     integer LED_activating_counter = 0;
     reg [3:0] Anode_Activate_Var;
@@ -46,40 +45,44 @@ module Vend_Main(
     reg [1:0] needMoney;
 
     //state machine
-    reg state = 0;
-    reg cstate = 0;
-    reg pstate = 0;
-    reg nstate = 0;
-    reg change_state = 0;
-    
+    reg [2:0] state = 3'b000;
+    reg [2:0] cstate = 3'b000;
+    reg [2:0] pstate = 3'b000;
+    reg [2:0] nstate = 3'b000;
+    reg [2:0] change_state = 3'b000;
+    reg reset_money;
+    reg change_money;
+
     ////////////////////////////Calculate Input Money//////////////////
 always@(posedge (money_in != 4'b0000))              //when dollars, quarters, bearcat card are entered
     begin
-
-    //seg7_count = 0; //for button debouncing
-
-    if(money_in == 4'b0001) begin                   //if quarter button pressed
-        quartersValue = quartersValue + 1;          //add 1 to quarterValue
-        if (quartersValue == 4) begin               //if 4 quarters entered
-            dollarsValue = dollarsValue + 1;        //convert to dollar
-            quartersValue = 0;                      //reset quarters
+    if (reset_money == 1'b1) begin
+        dollarsValue = 0;
+        quartersValue = 0;
+    end else begin
+        if(money_in == 4'b0001) begin                   //if quarter button pressed
+            quartersValue <= quartersValue + 1;          //add 1 to quarterValue
+            if (quartersValue == 3) begin               //if 4 quarters entered
+                dollarsValue <= dollarsValue + 1;        //convert to dollar
+                quartersValue <= 0;                      //reset quarters
+            end
         end
+        else if(money_in == 4'b0010) begin              //if dollar entered
+            dollarsValue <= dollarsValue + 1;            //add 1 to dollarValue
+        end
+        else if(money_in == 4'b0100) begin              //reset aka give change
+            dollarsValue <= 0;
+            quartersValue <= 0;
+        end
+        else if(money_in == 4'b1000) begin              //bearcat card entered (needs work)
+            dollarsValue <= 0;
+            quartersValue <= 0;
+        end
+        if (change_money == 1'b1) begin
+            dollarsValue = dollarsValue - dollarsSpent;
+            quartersValue = quartersValue - quartersSpent; 
+        end 
     end
-    else if(money_in == 4'b0010) begin              //if dollar entered
-        dollarsValue = dollarsValue + 1;            //add 1 to dollarValue
-    end
-    else if(money_in == 4'b0100) begin              //reset aka give change
-        dollarsValue = 0;
-        quartersValue = 0;
-    end
-    else if(money_in == 4'b1000) begin              //bearcat card entered (needs work)
-        dollarsValue = 0;
-        quartersValue = 0;
-    end
-
-    /* while (seg7_count < 500) begin                  //for button debouncing
-            seg7_count = seg7_count + 1;
-        end */
 
 end
     //end
@@ -96,14 +99,16 @@ always@((dollarsSpent) or (quartersSpent) or (dollarsValue) or (quartersValue)) 
             quartersCurrent <= quartersCurrent + 4; //new change
             quartersCurrent <= quartersCurrent - quartersSpent; //new amount
         end
-        if (quartersCurrent >= quartersSpent) begin //if you entered enough quarters
+        else if (quartersCurrent >= quartersSpent) begin //if you entered enough quarters
             quartersCurrent <= quartersCurrent - quartersSpent; //subtract quarters spent
         end
+        
         if (dollarsCurrent >= dollarsSpent) begin //if enough dollars entered
             dollarsCurrent <= dollarsCurrent - dollarsSpent; //subrtact quarters spent
         end
     end
 end
+
 
     //////////////////Set Dollar Display Variables/////////////////
 always @((dollarsCurrent) or (dollarsValue)) begin
@@ -239,55 +244,40 @@ assign Anode_Activate = Anode_Activate_Var;
 assign LED_out = LED_out_Var;
 assign decimal = decimalValue;
 
-//////////////////Monitors Current State and Debounce//////////////
-always@(posedge Clk) begin                  //at clock (synched with state machine)
-        cstate = dispense;                  //current state is switch input
-        /*if(cstate == 0) begin
-            state = 0;                      //restart
-            nstate = 0;                     //restart
-        end
-        else if (cstate == pstate) begin    //check if current state and past statement are the same
-            change_state = 0;               //do not change states
-        end
-        else begin                          //if they are not the same
-            change_state = 1;               //do not change states
-        end
-        pstate = cstate;*/                    //past state is current state
-    end
 
 /////////////////////////Dispense Product////////////////////////
 always @(posedge Clk) begin
         productSelect = product_in;         //record product selection
+        cstate = dispense;                  //check enable
         case(state)                         //move to state
-            0: begin                        // State 0: check product price
-                quartersSpent = 0;          //reset money spent
-                dollarsSpent = 0;           //reset money spent
-                
-                breadcrumb = 2'b01;
+            3'b000: begin                   // State 0: check product price
+            productDispensed = 8'b00000010;// nothing dispensed
+            reset_money = 1'b0;
+            change_money = 1'b0;
                 
                 if((productSelect == 8'b00000001) || (productSelect == 8'b00000010)) begin
-                    nstate = 1;             //$0.50 state
+                    nstate = 3'b001;             //$0.50 state
                 end
                 else if((productSelect == 8'b00000100) || (productSelect == 8'b00001000)) begin
-                    nstate = 2;             //$0.75 state
+                    nstate = 3'b010;             //$0.75 state
                 end
                 else if((productSelect == 8'b00010000) || (productSelect == 8'b00100000) || (productSelect == 8'b01000000) || (productSelect == 8'b10000000)) begin
-                    nstate = 3;             //$1.25 state
+                    nstate = 3'b011;             //$1.25 state
                 end
                 else begin
-                    nstate = 0;             //stay put
+                    nstate = 3'b000;             //stay put
                 end
-                if(cstate == 1) begin       //if ready to switch states
+                if(cstate == 3'b001) begin       //if ready to switch states
                     state = nstate;         //do itttttt :)
                 end
             end
 
-            1: begin                        //state 1, $0.50
+            3'b001: begin                        //state 1, $0.50
                 //breadcrumb = 2'b10;
 
                 if ((quartersValue >= 2) || (dollarsValue >= 1)) begin //$0.50
                     quartersSpent = 2;      //amount we will subtract
-                    state = 0;
+                    state = 3'b100;
                     if (productSelect == 8'b00000001)
                         productDispensed = 8'b00000001;
 
@@ -295,32 +285,29 @@ always @(posedge Clk) begin
                         productDispensed = 8'b00000010;
                 end
                 else begin 
-                    state = 1;
+                    state = 3'b001;
                     //alert need more money
                 end
-                /*if(change_state == 1) begin //if ready to switch states
-                    state = nstate;         //do itttttt :)
-                end*/
             end
 
-            2: begin // State 2
+            3'b010: begin // State 2
                 if ((quartersValue >= 3) || (dollarsValue >= 1)) begin //$0.75
                     quartersSpent = 3;
-                    state = 0;
+                    state = 3'b100;
                     if (productSelect == 8'b00000100)
                         productDispensed = 8'b00000100;
 
                     if (productSelect == 8'b00001000)
                         productDispensed = 8'b00001000;
                 end
-                else state = 2;
+                else state = 3'b010;
             end
 
-            3: begin // State 3
+            3'b011: begin // State 3
                 if ((dollarsValue >= 1) && (quartersValue >= 1)) begin //$1.25
                     quartersSpent = 1;
                     dollarsSpent = 1;
-                    state = 0;
+                    state = 3'b100;
                     if (productSelect == 8'b00010000)
                         productDispensed = 8'b00010000;
 
@@ -333,7 +320,25 @@ always @(posedge Clk) begin
                     if (productSelect == 8'b10000000)
                         productDispensed = 8'b10000000;
                 end
-                else state = 3;
+                else state = 3'b011;
+            end
+            3'b100: begin //State 4, prevent ghosting and reset money spent
+                                
+                breadcrumb = 2'b01;
+
+                
+                if((quartersSpent != 0) || (dollarsSpent != 0)) begin
+                    quartersSpent = 0;          //reset money spent
+                    dollarsSpent = 0;           //reset money spent
+                end
+                if(cstate == 1) begin       //if enable switch is still up
+                    state = 3'b100;              //stay here
+                    reset_money = 1'b1;
+                end
+                else 
+                    state = 3'b000;             //if enable switch is off, restart
+                    change_money = 1'b0;
+                
             end
         endcase
     end
