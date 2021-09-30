@@ -37,9 +37,7 @@ module tb_Vend_Main();
   wire [6:0] LED_out;           //display digit on 7-seg
   wire decimal;                  //display decimal on 7-seg
     
- // localparam period = 1000000000;  // 1 s delay
- 
-  localparam period = 100;  // 100 ns delay
+  localparam period = 100;  // 10 ns delay
 
   // map to lab2 module
   Vend_Main UUT (.Clk(Clk), .money_in(money_in), .product_in(product_in), .dispense(dispense), .product_out(product_out), .changeLED(changeLED), .alert(alert), .Anode_Activate(Anode_Activate), .LED_out(LED_out), .decimal(decimal));
@@ -47,9 +45,9 @@ module tb_Vend_Main();
   // initialize the clock for simulation
   always begin 
     clk2 = 1'b1;
-    #10; // high for 1000 ns
+    #10;     // high for 10 ns
     clk2 = 1'b0;
-    #10;     // low for 1000 ns
+    #10;     // low for 10 ns
   end
   
     // initialize the internal clock for board
@@ -61,38 +59,40 @@ module tb_Vend_Main();
   end
   
   initial begin 
-    money_in = 4'b0010;
+    money_in = 4'b0000;
     product_in = 8'b00000000;
     dispense = 1'b0;
   end
 
  always @(posedge clk2) 
  begin
-	// iterate through test cases
+    // iterate through test cases
       #period // wait for period 
-      money_in = 4'b0001; product_in = 8'b00000000; dispense = 1'b0; // quarter
+      money_in = 4'b0000; product_in = 8'b00000000; dispense = 1'b0;
       #period // wait for period 
-      money_in = 4'b0001; product_in = 8'b00000000; dispense = 1'b0; // quarter 
+      money_in = 4'b0001; product_in = 8'b00000000; dispense = 1'b0;
       #period // wait for period 
-      money_in = 4'b0010; product_in = 8'b00000000; dispense = 1'b0; // dollar
+      money_in = 4'b0001; product_in = 8'b00000000; dispense = 1'b0;
       #period // wait for period 
-      money_in = 4'b0010; product_in = 8'b00000000; dispense = 1'b0; // 1.50 is in bank
+      money_in = 4'b0000; product_in = 8'b00000000; dispense = 1'b0; // 1.50 is in bank
       #period // wait for period 
-      money_in = 4'b0010; product_in = 8'b00000000; dispense = 1'b0; // 1.00 is in bank 
+      money_in = 4'b0010; product_in = 8'b00000000; dispense = 1'b0; // 2.50 is in bank 
       #period // wait for period 
-      money_in = 4'b0000; product_in = 8'b00000000; dispense = 1'b0; // pause
+      money_in = 4'b0010; product_in = 8'b00000000; dispense = 1'b0; // pause
       #period // wait for period 
       money_in = 4'b0000; product_in = 8'b10000000; dispense = 1'b0; //1.25
       #period // wait for period 
       dispense = 1'b1; 
       #period // wait for period 
-      money_in = 4'b0010; product_in = 8'b00001000; dispense = 1'b0; //.75
+      money_in = 4'b0000; product_in = 8'b00001000; dispense = 1'b0; //.75
       #period // wait for period 
       dispense = 1'b1; 
       #period; 
       money_in = 4'b0000; product_in = 8'b00000010; dispense = 1'b0; //.50
       #period // wait for period 
       dispense = 1'b1; 
+      #period; //wait for period
+      #period; //wait for period
   end
    
 endmodule

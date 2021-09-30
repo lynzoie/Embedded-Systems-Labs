@@ -54,36 +54,42 @@ module Vend_Main(
     reg change_money;
 
     ////////////////////////////Calculate Input Money//////////////////
-always@(posedge (money_in != 4'b0000))              //when dollars, quarters, bearcat card are entered
+always@(posedge (money_in != 4'b0000) || reset_money)              //when dollars, quarters, bearcat card are entered
     begin
+    
+    if(money_in == 4'b0001) begin                   //if quarter button pressed
+        quartersValue <= quartersValue + 1;          //add 1 to quarterValue
+        if (quartersValue == 3) begin               //if 4 quarters entered
+            dollarsValue <= dollarsValue + 1;        //convert to dollar
+            quartersValue <= 0;                      //reset quarters
+        end
+    end
+    else if(money_in == 4'b0010) begin              //if dollar entered
+        dollarsValue <= dollarsValue + 1;            //add 1 to dollarValue
+    end
+    else if(money_in == 4'b0100) begin              //reset aka give change
+        dollarsValue <= 0;
+        quartersValue <= 0;
+    end
+    else if(money_in == 4'b1000) begin              //bearcat card entered (needs work)
+        dollarsValue <= 0;
+        quartersValue <= 0;
+    end
     if (reset_money == 1'b1) begin
         dollarsValue = 0;
         quartersValue = 0;
-    end else begin
-        if(money_in == 4'b0001) begin                   //if quarter button pressed
-            quartersValue <= quartersValue + 1;          //add 1 to quarterValue
-            if (quartersValue == 3) begin               //if 4 quarters entered
-                dollarsValue <= dollarsValue + 1;        //convert to dollar
-                quartersValue <= 0;                      //reset quarters
-            end
-        end
-        else if(money_in == 4'b0010) begin              //if dollar entered
-            dollarsValue <= dollarsValue + 1;            //add 1 to dollarValue
-        end
-        else if(money_in == 4'b0100) begin              //reset aka give change
-            dollarsValue <= 0;
-            quartersValue <= 0;
-        end
-        else if(money_in == 4'b1000) begin              //bearcat card entered (needs work)
-            dollarsValue <= 0;
-            quartersValue <= 0;
-        end
-        if (change_money == 1'b1) begin
-            dollarsValue = dollarsValue - dollarsSpent;
-            quartersValue = quartersValue - quartersSpent; 
-        end 
-    end
-
+//        if (quartersCurrent < quartersSpent) begin //not enough quarters
+//            dollarsCurrent <= dollarsCurrent - 1; //change for a dollar
+//            quartersCurrent <= quartersCurrent + 4; //new change
+//            quartersCurrent <= quartersCurrent - quartersSpent; //new amount
+//        end
+//        if (quartersCurrent >= quartersSpent) begin //if you entered enough quarters
+//            quartersCurrent <= quartersCurrent - quartersSpent; //subtract quarters spent
+//        end
+//        if (dollarsCurrent >= dollarsSpent) begin //if enough dollars entered
+//            dollarsCurrent <= dollarsCurrent - dollarsSpent; //subrtact quarters spent
+//        end
+    end 
 end
     //end
 
@@ -99,10 +105,9 @@ always@((dollarsSpent) or (quartersSpent) or (dollarsValue) or (quartersValue)) 
             quartersCurrent <= quartersCurrent + 4; //new change
             quartersCurrent <= quartersCurrent - quartersSpent; //new amount
         end
-        else if (quartersCurrent >= quartersSpent) begin //if you entered enough quarters
+        if (quartersCurrent >= quartersSpent) begin //if you entered enough quarters
             quartersCurrent <= quartersCurrent - quartersSpent; //subtract quarters spent
         end
-        
         if (dollarsCurrent >= dollarsSpent) begin //if enough dollars entered
             dollarsCurrent <= dollarsCurrent - dollarsSpent; //subrtact quarters spent
         end
@@ -253,7 +258,6 @@ always @(posedge Clk) begin
             3'b000: begin                   // State 0: check product price
             productDispensed = 8'b00000010;// nothing dispensed
             reset_money = 1'b0;
-            change_money = 1'b0;
                 
                 if((productSelect == 8'b00000001) || (productSelect == 8'b00000010)) begin
                     nstate = 3'b001;             //$0.50 state
@@ -337,8 +341,7 @@ always @(posedge Clk) begin
                 end
                 else 
                     state = 3'b000;             //if enable switch is off, restart
-                    change_money = 1'b0;
-                
+                    reset_money = 1'b0;
             end
         endcase
     end
