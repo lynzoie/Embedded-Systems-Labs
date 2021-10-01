@@ -18,12 +18,7 @@ module Vend_Main(
 );
     //track money
     integer money = 0;
-    integer quartersValue = 0;
-    integer dollarsValue = 0;
-    integer quartersCurrent = 0;
-    integer dollarsCurrent = 0;
-    integer quartersSpent = 0;
-    integer dollarsSpent = 0;
+    integer tempQuarters = 0;
 
     //for 7-segment
     integer onesDigit = 0;
@@ -41,7 +36,7 @@ module Vend_Main(
     //dispense money
     reg [7:0] productDispensed;
     reg [7:0] productSelect;
-    reg [1:0] breadcrumb;
+    reg [1:0] alert_reg;
     reg [1:0] needMoney;
 
     //state machine
@@ -58,126 +53,157 @@ always@(posedge (money_in != 4'b0000) || reset_money)              //when dollar
     begin
     
     if(money_in == 4'b0001) begin                   //if quarter button pressed
-        quartersValue <= quartersValue + 1;          //add 1 to quarterValue
-        if (quartersValue == 3) begin               //if 4 quarters entered
-            dollarsValue <= dollarsValue + 1;        //convert to dollar
-            quartersValue <= 0;                      //reset quarters
-        end
+        money = money + 25;
     end
     else if(money_in == 4'b0010) begin              //if dollar entered
-        dollarsValue <= dollarsValue + 1;            //add 1 to dollarValue
+        money = money + 100;
     end
     else if(money_in == 4'b0100) begin              //reset aka give change
-        dollarsValue <= 0;
-        quartersValue <= 0;
+        money = 0;
     end
     else if(money_in == 4'b1000) begin              //bearcat card entered (needs work)
-        dollarsValue <= 0;
-        quartersValue <= 0;
+        money = 0;
     end
     if (reset_money == 1'b1) begin
-        dollarsValue = 0;
-        quartersValue = 0;
-//        if (quartersCurrent < quartersSpent) begin //not enough quarters
-//            dollarsCurrent <= dollarsCurrent - 1; //change for a dollar
-//            quartersCurrent <= quartersCurrent + 4; //new change
-//            quartersCurrent <= quartersCurrent - quartersSpent; //new amount
-//        end
-//        if (quartersCurrent >= quartersSpent) begin //if you entered enough quarters
-//            quartersCurrent <= quartersCurrent - quartersSpent; //subtract quarters spent
-//        end
-//        if (dollarsCurrent >= dollarsSpent) begin //if enough dollars entered
-//            dollarsCurrent <= dollarsCurrent - dollarsSpent; //subrtact quarters spent
-//        end
+        money = 0;
     end 
 end
-    //end
-
-    //////////////////Calculate Spent Money/////////////////
-always@((dollarsSpent) or (quartersSpent) or (dollarsValue) or (quartersValue)) begin
-    //If money is either entered or spent
-    dollarsCurrent = dollarsValue; //move money input into current
-    quartersCurrent = quartersValue; //move mpmey input into current
-
-    if((quartersSpent != 0) || (dollarsSpent != 0)) begin //if money was spent
-        if (quartersCurrent < quartersSpent) begin //not enough quarters
-            dollarsCurrent <= dollarsCurrent - 1; //change for a dollar
-            quartersCurrent <= quartersCurrent + 4; //new change
-            quartersCurrent <= quartersCurrent - quartersSpent; //new amount
-        end
-        if (quartersCurrent >= quartersSpent) begin //if you entered enough quarters
-            quartersCurrent <= quartersCurrent - quartersSpent; //subtract quarters spent
-        end
-        if (dollarsCurrent >= dollarsSpent) begin //if enough dollars entered
-            dollarsCurrent <= dollarsCurrent - dollarsSpent; //subrtact quarters spent
-        end
-    end
-end
 
 
-    //////////////////Set Dollar Display Variables/////////////////
-always @((dollarsCurrent) or (dollarsValue)) begin
-    if(dollarsCurrent < 10) begin //displays 0#.##
+    //////////////////Set Money Display Variables/////////////////
+always @(money) begin
+    if(money < 100) begin //displays 0#.##
         foursDigit = 0;
-        threesDigit = dollarsCurrent;
-    end
-    else if((dollarsCurrent >= 10) && (dollarsCurrent < 20)) begin //displays 1#.##
-        foursDigit = 1;
-        threesDigit = dollarsCurrent - 10;
-    end
-    else if((dollarsCurrent >= 20) && (dollarsCurrent < 30)) begin //displays 2#.##
-        foursDigit = 2;
-        threesDigit = dollarsCurrent - 20;
-    end
-    else if((dollarsCurrent >= 30) && (dollarsCurrent < 40)) begin //displays 3#.##
-        foursDigit = 3;
-        threesDigit = dollarsCurrent - 30;
-    end
-    else if((dollarsCurrent >= 40) && (dollarsCurrent < 50)) begin //displays 4#.##
-        foursDigit = 4;
-        threesDigit = dollarsCurrent - 40;
-    end
-    else if((dollarsCurrent >= 50) && (dollarsCurrent < 60)) begin //displays 5#.##
-        foursDigit = 5;
-        threesDigit = dollarsCurrent - 50;
-    end
-    else if((dollarsCurrent >= 60) && (dollarsCurrent < 70)) begin //displays 6#.##
-        foursDigit = 6;
-        threesDigit = dollarsCurrent - 60;
-    end
-    else if((dollarsCurrent >= 70) && (dollarsCurrent < 80)) begin //displays 7#.##
-        foursDigit = 7;
-        threesDigit = dollarsCurrent - 70;
-    end
-    else if((dollarsCurrent >= 80) && (dollarsCurrent < 90)) begin //displays 8#.##
-        foursDigit = 8;
-        threesDigit = dollarsCurrent - 80;
-    end
-    else if((dollarsCurrent >= 90) && (dollarsCurrent < 100)) begin //displays 9#.##
-        foursDigit = 9;
-        threesDigit = dollarsCurrent - 90;
-    end
-end
+        threesDigit = 0;
         
-    //////////////////Set Quarters Display Variables/////////////////
-always @((quartersCurrent) or (quartersValue)) begin
-    case(quartersCurrent)
-        0: begin //0 cents
-            onesDigit = 0;
-            twosDigit = 0; end
-        1: begin //25 cents
-            onesDigit = 5;
-            twosDigit = 2; end
-        2: begin //50 cents
-            onesDigit = 0;
-            twosDigit = 5; end
-        3: begin //75 cents
-            onesDigit = 5;
-            twosDigit = 7; end
-        default: begin //0 cents
-            onesDigit = 0;
-            twosDigit = 0; end
-    endcase
+        case(money)
+            25: begin twosDigit = 2; onesDigit = 5; end
+            50: begin twosDigit = 5; onesDigit = 0; end
+            75: begin twosDigit = 7; onesDigit = 5; end
+            00: begin twosDigit = 0; onesDigit = 0; end
+        endcase
+    end
+    else if((money >= 100) && (money < 200)) begin //displays 1#.##
+        foursDigit = 0;
+        threesDigit = 1;
+        tempQuarters = money - 100;
+        case(tempQuarters)
+            25: begin twosDigit = 2; onesDigit = 5; end
+            50: begin twosDigit = 5; onesDigit = 0; end
+            75: begin twosDigit = 7; onesDigit = 5; end
+            00: begin twosDigit = 0; onesDigit = 0; end
+        endcase
+    end
+    else if((money >= 200) && (money < 300)) begin //displays 2#.##
+        foursDigit = 0;
+        threesDigit = 2;
+        tempQuarters = money - 200;
+        case(tempQuarters)
+            25: begin twosDigit = 2; onesDigit = 5; end
+            50: begin twosDigit = 5; onesDigit = 0; end
+            75: begin twosDigit = 7; onesDigit = 5; end
+            00: begin twosDigit = 0; onesDigit = 0; end
+        endcase
+    end
+    else if((money >= 300) && (money < 400)) begin //displays 3#.##
+        foursDigit = 0;
+        threesDigit = 3;
+        tempQuarters = money - 300;
+        case(tempQuarters)
+            25: begin twosDigit = 2; onesDigit = 5; end
+            50: begin twosDigit = 5; onesDigit = 0; end
+            75: begin twosDigit = 7; onesDigit = 5; end
+            00: begin twosDigit = 0; onesDigit = 0; end
+        endcase
+    end
+    else if((money >= 400) && (money < 500)) begin //displays 4#.##
+        foursDigit = 0;
+        threesDigit = 4;
+        tempQuarters = money - 400;
+        case(tempQuarters)
+            25: begin twosDigit = 2; onesDigit = 5; end
+            50: begin twosDigit = 5; onesDigit = 0; end
+            75: begin twosDigit = 7; onesDigit = 5; end
+            00: begin twosDigit = 0; onesDigit = 0; end
+        endcase
+    end
+    else if((money >= 50) && (money < 60)) begin //displays 5#.##
+        foursDigit = 0;
+        threesDigit = 5;
+        tempQuarters = money - 500;
+        case(tempQuarters)
+            25: begin twosDigit = 2; onesDigit = 5; end
+            50: begin twosDigit = 5; onesDigit = 0; end
+            75: begin twosDigit = 7; onesDigit = 5; end
+            00: begin twosDigit = 0; onesDigit = 0; end
+        endcase
+    end
+    else if((money >= 60) && (money < 70)) begin //displays 6#.##
+        foursDigit = 0;
+        threesDigit = 6;
+        tempQuarters = money - 600;
+        case(tempQuarters)
+            25: begin twosDigit = 2; onesDigit = 5; end
+            50: begin twosDigit = 5; onesDigit = 0; end
+            75: begin twosDigit = 7; onesDigit = 5; end
+            00: begin twosDigit = 0; onesDigit = 0; end
+        endcase
+    end
+    else if((money >= 700) && (money < 800)) begin //displays 7#.##
+        foursDigit = 0;
+        threesDigit = 7;
+        tempQuarters = money - 700;
+        case(tempQuarters)
+            25: begin twosDigit = 2; onesDigit = 5; end
+            50: begin twosDigit = 5; onesDigit = 0; end
+            75: begin twosDigit = 7; onesDigit = 5; end
+            00: begin twosDigit = 0; onesDigit = 0; end
+        endcase
+    end
+    else if((money >= 800) && (money < 900)) begin //displays 8#.##
+        foursDigit = 0;
+        threesDigit = 8;
+        tempQuarters = money - 800;
+        case(tempQuarters)
+            25: begin twosDigit = 2; onesDigit = 5; end
+            50: begin twosDigit = 5; onesDigit = 0; end
+            75: begin twosDigit = 7; onesDigit = 5; end
+            00: begin twosDigit = 0; onesDigit = 0; end
+        endcase
+    end
+    else if((money >= 900) && (money < 1000)) begin //displays 9#.##
+        foursDigit = 0;
+        threesDigit = 9;
+        tempQuarters = money - 900;
+        case(tempQuarters)
+            25: begin twosDigit = 2; onesDigit = 5; end
+            50: begin twosDigit = 5; onesDigit = 0; end
+            75: begin twosDigit = 7; onesDigit = 5; end
+            00: begin twosDigit = 0; onesDigit = 0; end
+        endcase
+    end
+    else if((money >= 1000) && (money < 1100)) begin //displays 9#.##
+        foursDigit = 1;
+        threesDigit = 0;
+        tempQuarters = money - 1000;
+        case(tempQuarters)
+            25: begin twosDigit = 2; onesDigit = 5; end
+            50: begin twosDigit = 5; onesDigit = 0; end
+            75: begin twosDigit = 7; onesDigit = 5; end
+            00: begin twosDigit = 0; onesDigit = 0; end
+        endcase
+    end
+    else if((money >= 1100) && (money < 1200)) begin //displays 9#.##
+        foursDigit = 1;
+        threesDigit = 1;
+        tempQuarters = money - 1100;
+        case(tempQuarters)
+            25: begin twosDigit = 2; onesDigit = 5; end
+            50: begin twosDigit = 5; onesDigit = 0; end
+            75: begin twosDigit = 7; onesDigit = 5; end
+            00: begin twosDigit = 0; onesDigit = 0; end
+        endcase
+    end
 end
 
 ////////////////////////////Select Lit 7-Seg//////////////////
@@ -252,12 +278,15 @@ assign decimal = decimalValue;
 
 /////////////////////////Dispense Product////////////////////////
 always @(posedge Clk) begin
+        reset_money = 1'b0;
+        alert_reg = 2'b00;
         productSelect = product_in;         //record product selection
         cstate = dispense;                  //check enable
         case(state)                         //move to state
             3'b000: begin                   // State 0: check product price
-            productDispensed = 8'b00000010;// nothing dispensed
             reset_money = 1'b0;
+            alert_reg = 2'b00;
+            productDispensed = 8'b00000000; 
                 
                 if((productSelect == 8'b00000001) || (productSelect == 8'b00000010)) begin
                     nstate = 3'b001;             //$0.50 state
@@ -272,16 +301,16 @@ always @(posedge Clk) begin
                     nstate = 3'b000;             //stay put
                 end
                 if(cstate == 3'b001) begin       //if ready to switch states
-                    state = nstate;         //do itttttt :)
+                    state = nstate;              //do itttttt :)
                 end
             end
 
             3'b001: begin                        //state 1, $0.50
-                //breadcrumb = 2'b10;
-
-                if ((quartersValue >= 2) || (dollarsValue >= 1)) begin //$0.50
-                    quartersSpent = 2;      //amount we will subtract
+                alert_reg = 2'b00;
+                if (money >= 50) begin //$0.50
                     state = 3'b100;
+                    reset_money = 1'b1;
+                    alert_reg = 2'b00;
                     if (productSelect == 8'b00000001)
                         productDispensed = 8'b00000001;
 
@@ -290,28 +319,34 @@ always @(posedge Clk) begin
                 end
                 else begin 
                     state = 3'b001;
-                    //alert need more money
+                        alert_reg = 2'b01;
                 end
             end
 
             3'b010: begin // State 2
-                if ((quartersValue >= 3) || (dollarsValue >= 1)) begin //$0.75
-                    quartersSpent = 3;
+                alert_reg = 2'b00;
+                if (money >= 75) begin //$0.75
                     state = 3'b100;
+                    reset_money = 1'b1;
+                    alert_reg = 2'b00;
                     if (productSelect == 8'b00000100)
                         productDispensed = 8'b00000100;
 
                     if (productSelect == 8'b00001000)
                         productDispensed = 8'b00001000;
                 end
-                else state = 3'b010;
+                else begin
+                state = 3'b010;
+                alert_reg = 2'b01;
+                end
             end
 
             3'b011: begin // State 3
-                if ((dollarsValue >= 1) && (quartersValue >= 1)) begin //$1.25
-                    quartersSpent = 1;
-                    dollarsSpent = 1;
+                alert_reg = 2'b00;
+                if (money >= 125) begin //$1.25
                     state = 3'b100;
+                    reset_money = 1'b1;
+                    alert_reg = 2'b00;
                     if (productSelect == 8'b00010000)
                         productDispensed = 8'b00010000;
 
@@ -324,17 +359,12 @@ always @(posedge Clk) begin
                     if (productSelect == 8'b10000000)
                         productDispensed = 8'b10000000;
                 end
-                else state = 3'b011;
+                else begin
+                state = 3'b011;
+                alert_reg = 2'b01;
+                end 
             end
-            3'b100: begin //State 4, prevent ghosting and reset money spent
-                                
-                breadcrumb = 2'b01;
-
-                
-                if((quartersSpent != 0) || (dollarsSpent != 0)) begin
-                    quartersSpent = 0;          //reset money spent
-                    dollarsSpent = 0;           //reset money spent
-                end
+            3'b100: begin //State 4, prevent ghosting and reset money spent      
                 if(cstate == 1) begin       //if enable switch is still up
                     state = 3'b100;              //stay here
                     reset_money = 1'b1;
@@ -342,12 +372,12 @@ always @(posedge Clk) begin
                 else 
                     state = 3'b000;             //if enable switch is off, restart
                     reset_money = 1'b0;
-            end
+                end
         endcase
     end
 
 assign product_out = productDispensed;
-assign alert = breadcrumb;
+assign alert = alert_reg;
 
 
 endmodule
