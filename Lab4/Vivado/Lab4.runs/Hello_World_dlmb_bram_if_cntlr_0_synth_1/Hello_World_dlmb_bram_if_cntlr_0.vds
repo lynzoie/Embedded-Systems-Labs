@@ -1,0 +1,293 @@
+#-----------------------------------------------------------
+# Vivado v2020.2 (64-bit)
+# SW Build 3064766 on Wed Nov 18 09:12:45 MST 2020
+# IP Build 3064653 on Wed Nov 18 14:17:31 MST 2020
+# Start of session at: Wed Oct  6 17:06:46 2021
+# Process ID: 18532
+# Current directory: C:/Users/Andi/GIT/Embedded Systems/Embedded-Systems-Labs/Lab4/Lab4.runs/Hello_World_dlmb_bram_if_cntlr_0_synth_1
+# Command line: vivado.exe -log Hello_World_dlmb_bram_if_cntlr_0.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source Hello_World_dlmb_bram_if_cntlr_0.tcl
+# Log file: C:/Users/Andi/GIT/Embedded Systems/Embedded-Systems-Labs/Lab4/Lab4.runs/Hello_World_dlmb_bram_if_cntlr_0_synth_1/Hello_World_dlmb_bram_if_cntlr_0.vds
+# Journal file: C:/Users/Andi/GIT/Embedded Systems/Embedded-Systems-Labs/Lab4/Lab4.runs/Hello_World_dlmb_bram_if_cntlr_0_synth_1\vivado.jou
+#-----------------------------------------------------------
+source Hello_World_dlmb_bram_if_cntlr_0.tcl -notrace
+create_project: Time (s): cpu = 00:00:10 ; elapsed = 00:00:14 . Memory (MB): peak = 1126.215 ; gain = 0.000
+Command: synth_design -top Hello_World_dlmb_bram_if_cntlr_0 -part xc7a35tcpg236-1 -mode out_of_context
+Starting synth_design
+Attempting to get a license for feature 'Synthesis' and/or device 'xc7a35t'
+INFO: [Common 17-349] Got license for feature 'Synthesis' and/or device 'xc7a35t'
+INFO: [Device 21-403] Loading part xc7a35tcpg236-1
+INFO: [Synth 8-7079] Multithreading enabled for synth_design using a maximum of 2 processes.
+INFO: [Synth 8-7078] Launching helper process for spawning children vivado processes
+INFO: [Synth 8-7075] Helper process launched with PID 19060
+---------------------------------------------------------------------------------
+Starting RTL Elaboration : Time (s): cpu = 00:00:17 ; elapsed = 00:00:18 . Memory (MB): peak = 1148.953 ; gain = 22.738
+---------------------------------------------------------------------------------
+INFO: [Synth 8-638] synthesizing module 'Hello_World_dlmb_bram_if_cntlr_0' [c:/Users/Andi/GIT/Embedded Systems/Embedded-Systems-Labs/Lab4/Lab4.gen/sources_1/bd/Hello_World/ip/Hello_World_dlmb_bram_if_cntlr_0/synth/Hello_World_dlmb_bram_if_cntlr_0.vhd:84]
+	Parameter C_FAMILY bound to: artix7 - type: string 
+	Parameter C_HIGHADDR bound to: 64'b0000000000000000000000000000000000000000000000000001111111111111 
+	Parameter C_BASEADDR bound to: 64'b0000000000000000000000000000000000000000000000000000000000000000 
+	Parameter C_NUM_LMB bound to: 1 - type: integer 
+	Parameter C_MASK bound to: 64'b0000000000000000000000000000000001000000000000000000000000000000 
+	Parameter C_MASK1 bound to: 64'b0000000000000000000000000000000000000000100000000000000000000000 
+	Parameter C_MASK2 bound to: 64'b0000000000000000000000000000000000000000100000000000000000000000 
+	Parameter C_MASK3 bound to: 64'b0000000000000000000000000000000000000000100000000000000000000000 
+	Parameter C_LMB_AWIDTH bound to: 32 - type: integer 
+	Parameter C_LMB_DWIDTH bound to: 32 - type: integer 
+	Parameter C_LMB_PROTOCOL bound to: 0 - type: integer 
+	Parameter C_ECC bound to: 0 - type: integer 
+	Parameter C_INTERCONNECT bound to: 0 - type: integer 
+	Parameter C_FAULT_INJECT bound to: 0 - type: integer 
+	Parameter C_CE_FAILING_REGISTERS bound to: 0 - type: integer 
+	Parameter C_UE_FAILING_REGISTERS bound to: 0 - type: integer 
+	Parameter C_ECC_STATUS_REGISTERS bound to: 0 - type: integer 
+	Parameter C_ECC_ONOFF_REGISTER bound to: 0 - type: integer 
+	Parameter C_ECC_ONOFF_RESET_VALUE bound to: 1 - type: integer 
+	Parameter C_CE_COUNTER_WIDTH bound to: 0 - type: integer 
+	Parameter C_WRITE_ACCESS bound to: 2 - type: integer 
+	Parameter C_BRAM_AWIDTH bound to: 32 - type: integer 
+	Parameter C_S_AXI_CTRL_ADDR_WIDTH bound to: 32 - type: integer 
+	Parameter C_S_AXI_CTRL_DATA_WIDTH bound to: 32 - type: integer 
+INFO: [Synth 8-3491] module 'lmb_bram_if_cntlr' declared at 'c:/Users/Andi/GIT/Embedded Systems/Embedded-Systems-Labs/Lab4/Lab4.gen/sources_1/bd/Hello_World/ipshared/0b98/hdl/lmb_bram_if_cntlr_v4_0_vh_rfs.vhd:3134' bound to instance 'U0' of component 'lmb_bram_if_cntlr' [c:/Users/Andi/GIT/Embedded Systems/Embedded-Systems-Labs/Lab4/Lab4.gen/sources_1/bd/Hello_World/ip/Hello_World_dlmb_bram_if_cntlr_0/synth/Hello_World_dlmb_bram_if_cntlr_0.vhd:226]
+INFO: [Synth 8-638] synthesizing module 'lmb_bram_if_cntlr' [c:/Users/Andi/GIT/Embedded Systems/Embedded-Systems-Labs/Lab4/Lab4.gen/sources_1/bd/Hello_World/ipshared/0b98/hdl/lmb_bram_if_cntlr_v4_0_vh_rfs.vhd:3259]
+	Parameter C_FAMILY bound to: artix7 - type: string 
+	Parameter C_HIGHADDR bound to: 64'b0000000000000000000000000000000000000000000000000001111111111111 
+	Parameter C_BASEADDR bound to: 64'b0000000000000000000000000000000000000000000000000000000000000000 
+	Parameter C_MASK bound to: 64'b0000000000000000000000000000000001000000000000000000000000000000 
+	Parameter C_MASK1 bound to: 64'b0000000000000000000000000000000000000000100000000000000000000000 
+	Parameter C_MASK2 bound to: 64'b0000000000000000000000000000000000000000100000000000000000000000 
+	Parameter C_MASK3 bound to: 64'b0000000000000000000000000000000000000000100000000000000000000000 
+	Parameter C_LMB_AWIDTH bound to: 32 - type: integer 
+	Parameter C_LMB_DWIDTH bound to: 32 - type: integer 
+	Parameter C_ECC bound to: 0 - type: integer 
+	Parameter C_INTERCONNECT bound to: 0 - type: integer 
+	Parameter C_FAULT_INJECT bound to: 0 - type: integer 
+	Parameter C_CE_FAILING_REGISTERS bound to: 0 - type: integer 
+	Parameter C_UE_FAILING_REGISTERS bound to: 0 - type: integer 
+	Parameter C_ECC_STATUS_REGISTERS bound to: 0 - type: integer 
+	Parameter C_ECC_ONOFF_REGISTER bound to: 0 - type: integer 
+	Parameter C_ECC_ONOFF_RESET_VALUE bound to: 1 - type: integer 
+	Parameter C_CE_COUNTER_WIDTH bound to: 0 - type: integer 
+	Parameter C_WRITE_ACCESS bound to: 2 - type: integer 
+	Parameter C_NUM_LMB bound to: 1 - type: integer 
+	Parameter C_LMB_PROTOCOL bound to: 0 - type: integer 
+	Parameter C_BRAM_AWIDTH bound to: 32 - type: integer 
+	Parameter C_S_AXI_CTRL_BASEADDR bound to: 32'b11111111111111111111111111111111 
+	Parameter C_S_AXI_CTRL_HIGHADDR bound to: 32'b00000000000000000000000000000000 
+	Parameter C_S_AXI_CTRL_ADDR_WIDTH bound to: 32 - type: integer 
+	Parameter C_S_AXI_CTRL_DATA_WIDTH bound to: 32 - type: integer 
+	Parameter C_TARGET bound to: 2 - type: integer 
+	Parameter C_BASEADDR bound to: 64'b0000000000000000000000000000000000000000000000000000000000000000 
+	Parameter C_MASK bound to: 64'b0000000000000000000000000000000001000000000000000000000000000000 
+	Parameter C_MASK1 bound to: 64'b0000000000000000000000000000000000000000100000000000000000000000 
+	Parameter C_MASK2 bound to: 64'b0000000000000000000000000000000000000000100000000000000000000000 
+	Parameter C_MASK3 bound to: 64'b0000000000000000000000000000000000000000100000000000000000000000 
+	Parameter C_LMB_AWIDTH bound to: 32 - type: integer 
+	Parameter C_LMB_DWIDTH bound to: 32 - type: integer 
+	Parameter C_ECC bound to: 0 - type: integer 
+	Parameter C_NUM_LMB bound to: 1 - type: integer 
+	Parameter C_LMB_PROTOCOL bound to: 0 - type: integer 
+INFO: [Synth 8-3491] module 'lmb_mux' declared at 'c:/Users/Andi/GIT/Embedded Systems/Embedded-Systems-Labs/Lab4/Lab4.gen/sources_1/bd/Hello_World/ipshared/0b98/hdl/lmb_bram_if_cntlr_v4_0_vh_rfs.vhd:2527' bound to instance 'lmb_mux_I' of component 'lmb_mux' [c:/Users/Andi/GIT/Embedded Systems/Embedded-Systems-Labs/Lab4/Lab4.gen/sources_1/bd/Hello_World/ipshared/0b98/hdl/lmb_bram_if_cntlr_v4_0_vh_rfs.vhd:3511]
+INFO: [Synth 8-638] synthesizing module 'lmb_mux' [c:/Users/Andi/GIT/Embedded Systems/Embedded-Systems-Labs/Lab4/Lab4.gen/sources_1/bd/Hello_World/ipshared/0b98/hdl/lmb_bram_if_cntlr_v4_0_vh_rfs.vhd:2614]
+	Parameter C_TARGET bound to: 2 - type: integer 
+	Parameter C_BASEADDR bound to: 64'b0000000000000000000000000000000000000000000000000000000000000000 
+	Parameter C_MASK bound to: 64'b0000000000000000000000000000000001000000000000000000000000000000 
+	Parameter C_MASK1 bound to: 64'b0000000000000000000000000000000000000000100000000000000000000000 
+	Parameter C_MASK2 bound to: 64'b0000000000000000000000000000000000000000100000000000000000000000 
+	Parameter C_MASK3 bound to: 64'b0000000000000000000000000000000000000000100000000000000000000000 
+	Parameter C_LMB_AWIDTH bound to: 32 - type: integer 
+	Parameter C_LMB_DWIDTH bound to: 32 - type: integer 
+	Parameter C_ECC bound to: 0 - type: integer 
+	Parameter C_NUM_LMB bound to: 1 - type: integer 
+	Parameter C_LMB_PROTOCOL bound to: 0 - type: integer 
+	Parameter C_AW bound to: 32 - type: integer 
+	Parameter C_BAR bound to: 64'b0000000000000000000000000000000000000000000000000000000000000000 
+	Parameter C_MASK bound to: 64'b0000000000000000000000000000000001000000000000000000000000000000 
+INFO: [Synth 8-3491] module 'pselect_mask' declared at 'c:/Users/Andi/GIT/Embedded Systems/Embedded-Systems-Labs/Lab4/Lab4.gen/sources_1/bd/Hello_World/ipshared/0b98/hdl/lmb_bram_if_cntlr_v4_0_vh_rfs.vhd:2110' bound to instance 'pselect_mask_lmb' of component 'pselect_mask' [c:/Users/Andi/GIT/Embedded Systems/Embedded-Systems-Labs/Lab4/Lab4.gen/sources_1/bd/Hello_World/ipshared/0b98/hdl/lmb_bram_if_cntlr_v4_0_vh_rfs.vhd:2681]
+INFO: [Synth 8-638] synthesizing module 'pselect_mask' [c:/Users/Andi/GIT/Embedded Systems/Embedded-Systems-Labs/Lab4/Lab4.gen/sources_1/bd/Hello_World/ipshared/0b98/hdl/lmb_bram_if_cntlr_v4_0_vh_rfs.vhd:2125]
+	Parameter C_AW bound to: 32 - type: integer 
+	Parameter C_BAR bound to: 64'b0000000000000000000000000000000000000000000000000000000000000000 
+	Parameter C_MASK bound to: 64'b0000000000000000000000000000000001000000000000000000000000000000 
+INFO: [Synth 8-256] done synthesizing module 'pselect_mask' (1#1) [c:/Users/Andi/GIT/Embedded Systems/Embedded-Systems-Labs/Lab4/Lab4.gen/sources_1/bd/Hello_World/ipshared/0b98/hdl/lmb_bram_if_cntlr_v4_0_vh_rfs.vhd:2125]
+INFO: [Synth 8-256] done synthesizing module 'lmb_mux' (2#1) [c:/Users/Andi/GIT/Embedded Systems/Embedded-Systems-Labs/Lab4/Lab4.gen/sources_1/bd/Hello_World/ipshared/0b98/hdl/lmb_bram_if_cntlr_v4_0_vh_rfs.vhd:2614]
+INFO: [Synth 8-256] done synthesizing module 'lmb_bram_if_cntlr' (3#1) [c:/Users/Andi/GIT/Embedded Systems/Embedded-Systems-Labs/Lab4/Lab4.gen/sources_1/bd/Hello_World/ipshared/0b98/hdl/lmb_bram_if_cntlr_v4_0_vh_rfs.vhd:3259]
+INFO: [Synth 8-256] done synthesizing module 'Hello_World_dlmb_bram_if_cntlr_0' (4#1) [c:/Users/Andi/GIT/Embedded Systems/Embedded-Systems-Labs/Lab4/Lab4.gen/sources_1/bd/Hello_World/ip/Hello_World_dlmb_bram_if_cntlr_0/synth/Hello_World_dlmb_bram_if_cntlr_0.vhd:84]
+---------------------------------------------------------------------------------
+Finished RTL Elaboration : Time (s): cpu = 00:00:21 ; elapsed = 00:00:25 . Memory (MB): peak = 1206.836 ; gain = 80.621
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Handling Custom Attributes
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:23 ; elapsed = 00:00:27 . Memory (MB): peak = 1206.836 ; gain = 80.621
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:23 ; elapsed = 00:00:27 . Memory (MB): peak = 1206.836 ; gain = 80.621
+---------------------------------------------------------------------------------
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.044 . Memory (MB): peak = 1206.836 ; gain = 0.000
+INFO: [Project 1-570] Preparing netlist for logic optimization
+
+Processing XDC Constraints
+Initializing timing engine
+Parsing XDC File [c:/Users/Andi/GIT/Embedded Systems/Embedded-Systems-Labs/Lab4/Lab4.gen/sources_1/bd/Hello_World/ip/Hello_World_dlmb_bram_if_cntlr_0/Hello_World_dlmb_bram_if_cntlr_0_ooc.xdc] for cell 'U0'
+Finished Parsing XDC File [c:/Users/Andi/GIT/Embedded Systems/Embedded-Systems-Labs/Lab4/Lab4.gen/sources_1/bd/Hello_World/ip/Hello_World_dlmb_bram_if_cntlr_0/Hello_World_dlmb_bram_if_cntlr_0_ooc.xdc] for cell 'U0'
+Parsing XDC File [C:/Users/Andi/GIT/Embedded Systems/Embedded-Systems-Labs/Lab4/Lab4.runs/Hello_World_dlmb_bram_if_cntlr_0_synth_1/dont_touch.xdc]
+Finished Parsing XDC File [C:/Users/Andi/GIT/Embedded Systems/Embedded-Systems-Labs/Lab4/Lab4.runs/Hello_World_dlmb_bram_if_cntlr_0_synth_1/dont_touch.xdc]
+Completed Processing XDC Constraints
+
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.001 . Memory (MB): peak = 1274.473 ; gain = 0.000
+INFO: [Project 1-111] Unisim Transformation Summary:
+No Unisim elements were transformed.
+
+Constraint Validation Runtime : Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.062 . Memory (MB): peak = 1285.336 ; gain = 10.863
+---------------------------------------------------------------------------------
+Finished Constraint Validation : Time (s): cpu = 00:00:44 ; elapsed = 00:00:49 . Memory (MB): peak = 1285.336 ; gain = 159.121
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Loading Part and Timing Information
+---------------------------------------------------------------------------------
+Loading part: xc7a35tcpg236-1
+---------------------------------------------------------------------------------
+Finished Loading Part and Timing Information : Time (s): cpu = 00:00:44 ; elapsed = 00:00:49 . Memory (MB): peak = 1285.336 ; gain = 159.121
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Applying 'set_property' XDC Constraints
+---------------------------------------------------------------------------------
+Applied set_property KEEP_HIERARCHY = SOFT for U0. (constraint file  {C:/Users/Andi/GIT/Embedded Systems/Embedded-Systems-Labs/Lab4/Lab4.runs/Hello_World_dlmb_bram_if_cntlr_0_synth_1/dont_touch.xdc}, line 9).
+---------------------------------------------------------------------------------
+Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:44 ; elapsed = 00:00:49 . Memory (MB): peak = 1285.336 ; gain = 159.121
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:45 ; elapsed = 00:00:50 . Memory (MB): peak = 1285.336 ; gain = 159.121
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start RTL Component Statistics 
+---------------------------------------------------------------------------------
+Detailed RTL Component Info : 
++---Registers : 
+	                1 Bit    Registers := 2     
+---------------------------------------------------------------------------------
+Finished RTL Component Statistics 
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Part Resource Summary
+---------------------------------------------------------------------------------
+Part Resources:
+DSPs: 90 (col length:60)
+BRAMs: 100 (col length: RAMB18 60 RAMB36 30)
+---------------------------------------------------------------------------------
+Finished Part Resource Summary
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Cross Boundary and Area Optimization
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:00:51 ; elapsed = 00:00:56 . Memory (MB): peak = 1285.336 ; gain = 159.121
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Applying XDC Timing Constraints
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Applying XDC Timing Constraints : Time (s): cpu = 00:01:12 ; elapsed = 00:01:19 . Memory (MB): peak = 1293.180 ; gain = 166.965
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Timing Optimization
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Timing Optimization : Time (s): cpu = 00:01:12 ; elapsed = 00:01:19 . Memory (MB): peak = 1293.254 ; gain = 167.039
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Technology Mapping
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Technology Mapping : Time (s): cpu = 00:01:12 ; elapsed = 00:01:19 . Memory (MB): peak = 1312.371 ; gain = 186.156
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Flattening Before IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Flattening Before IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Final Netlist Cleanup
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Final Netlist Cleanup
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished IO Insertion : Time (s): cpu = 00:01:27 ; elapsed = 00:01:34 . Memory (MB): peak = 1319.125 ; gain = 192.910
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Instances
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Instances : Time (s): cpu = 00:01:27 ; elapsed = 00:01:34 . Memory (MB): peak = 1319.125 ; gain = 192.910
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Rebuilding User Hierarchy
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Rebuilding User Hierarchy : Time (s): cpu = 00:01:27 ; elapsed = 00:01:34 . Memory (MB): peak = 1319.125 ; gain = 192.910
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Ports
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Ports : Time (s): cpu = 00:01:27 ; elapsed = 00:01:34 . Memory (MB): peak = 1319.125 ; gain = 192.910
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Handling Custom Attributes
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Handling Custom Attributes : Time (s): cpu = 00:01:27 ; elapsed = 00:01:34 . Memory (MB): peak = 1319.125 ; gain = 192.910
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Nets
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Nets : Time (s): cpu = 00:01:27 ; elapsed = 00:01:34 . Memory (MB): peak = 1319.125 ; gain = 192.910
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Writing Synthesis Report
+---------------------------------------------------------------------------------
+
+Report BlackBoxes: 
++-+--------------+----------+
+| |BlackBox name |Instances |
++-+--------------+----------+
++-+--------------+----------+
+
+Report Cell Usage: 
++------+-----+------+
+|      |Cell |Count |
++------+-----+------+
+|1     |LUT2 |     3|
+|2     |LUT3 |     4|
+|3     |FDRE |     2|
++------+-----+------+
+---------------------------------------------------------------------------------
+Finished Writing Synthesis Report : Time (s): cpu = 00:01:27 ; elapsed = 00:01:34 . Memory (MB): peak = 1319.125 ; gain = 192.910
+---------------------------------------------------------------------------------
+Synthesis finished with 0 errors, 0 critical warnings and 0 warnings.
+Synthesis Optimization Runtime : Time (s): cpu = 00:00:57 ; elapsed = 00:01:27 . Memory (MB): peak = 1319.125 ; gain = 114.410
+Synthesis Optimization Complete : Time (s): cpu = 00:01:27 ; elapsed = 00:01:34 . Memory (MB): peak = 1319.125 ; gain = 192.910
+INFO: [Project 1-571] Translating synthesized netlist
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.029 . Memory (MB): peak = 1331.188 ; gain = 0.000
+INFO: [Project 1-570] Preparing netlist for logic optimization
+INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.001 . Memory (MB): peak = 1334.633 ; gain = 0.000
+INFO: [Project 1-111] Unisim Transformation Summary:
+No Unisim elements were transformed.
+
+INFO: [Common 17-83] Releasing license: Synthesis
+23 Infos, 0 Warnings, 0 Critical Warnings and 0 Errors encountered.
+synth_design completed successfully
+synth_design: Time (s): cpu = 00:01:51 ; elapsed = 00:02:05 . Memory (MB): peak = 1334.633 ; gain = 208.418
+INFO: [Common 17-1381] The checkpoint 'C:/Users/Andi/GIT/Embedded Systems/Embedded-Systems-Labs/Lab4/Lab4.runs/Hello_World_dlmb_bram_if_cntlr_0_synth_1/Hello_World_dlmb_bram_if_cntlr_0.dcp' has been generated.
+WARNING: [Common 17-576] 'use_project_ipc' is deprecated. This option is deprecated and no longer used.
+INFO: [Coretcl 2-1648] Added synthesis output to IP cache for IP Hello_World_dlmb_bram_if_cntlr_0, cache-ID = fe7cef6e969a58b3
+INFO: [Common 17-1381] The checkpoint 'C:/Users/Andi/GIT/Embedded Systems/Embedded-Systems-Labs/Lab4/Lab4.runs/Hello_World_dlmb_bram_if_cntlr_0_synth_1/Hello_World_dlmb_bram_if_cntlr_0.dcp' has been generated.
+INFO: [runtcl-4] Executing : report_utilization -file Hello_World_dlmb_bram_if_cntlr_0_utilization_synth.rpt -pb Hello_World_dlmb_bram_if_cntlr_0_utilization_synth.pb
+INFO: [Common 17-206] Exiting Vivado at Wed Oct  6 17:09:26 2021...
